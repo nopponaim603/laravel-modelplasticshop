@@ -10,8 +10,9 @@ class Customer extends Model
     use HasFactory;
     protected $table = "customers";
     
-    public function SupportSalesRep()
+    public function salesrep()
     {
-        return $this->belongsTo('App\Models\Employees');
+        //return $this;
+        return $this->belongsTo('App\Models\Employee','foreign_key');
     }
 }
