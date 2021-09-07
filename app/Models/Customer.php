@@ -9,10 +9,4 @@ class Customer extends Model
 {
     use HasFactory;
     protected $table = "customers";
-    
-    public function salesrep()
-    {
-        //return $this;
-        return $this->belongsTo('App\Models\Employee','foreign_key');
-    }
 }
