@@ -12,7 +12,7 @@ use App\Models\Employee;
 class customerServiceController extends Controller
 {
     //
-    public function getSelaeRepByUser($id)
+    public function getSelaeRepByEmployee($id)
 	{
         $customers = DB::table('customers')
         ->join('employees','customers.salesRepEmployeeNumber',"=",'employees.employeeNumber')
@@ -23,10 +23,30 @@ class customerServiceController extends Controller
         return $customers;
     }
 
-    public function getListUsersByEmployee($id)
+    public function getTotalEachOrderByCustomer($id)
     {
-        $employees = Employee::find($id);
-        $customers = $employees->SupportUsers;
-        return $customers;
+        /*
+        $result = DB::table('customers')
+        
+        
+        ->join('orders','orders.customerNumber', "=", 'customers.customerNumber')
+        ->join('orderdetails','orderdetails.orderNumber', "=", 'orders.orderNumber')
+        ->where('customers.customerNumber', $id)
+        
+        ->groupBy('orders.orderNumber')
+        //->selectRaw('*, sum(orderdetails.priceEach)')
+        ->get();
+        */
+        $result = DB::select(DB::raw(" 
+        SELECT customers.customerNumber, 
+        orders.orderNumber, orders.status
+        FROM customers
+            Join orders on orders.customerNumber = customers.customerNumber
+            Join orderdetails on orderdetails.orderNumber = orders.orderNumber
+        where customers.customerNumber = 103
+        "
+        ));
+
+        return $result;
     }
 }

@@ -19,4 +19,6 @@ Route::get('/', function () {
 
 use App\Http\Controllers\customerServiceController;
 
-Route::get('/get-selaerep/{id}',[customerServiceController::class,'getSelaeRepByUser']);
+Route::get('/get-selaerep/{id}',[customerServiceController::class,'getSelaeRepByEmployee']);
+
+Route::get('/get-totalPrice/{id}',[customerServiceController::class,'getTotalEachOrderByCustomer']);
